@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
 
 Route::get('/task-page', TaskPage::class)->name('task-page');
-Route::get('/task-page/{id}', TaskFormPage::class)->name('task-form');
+Route::get('/task-page/{id}', TaskFormPage::class)->name('task.form');
 
 Route::get('/category', CategoryPage::class)->name('category');
 // Route::get('/category/{id}', CategoryFormPage::class);

@@ -23,6 +23,14 @@ x-transition>
             class="my-5 w-1/6 flex-end bg-gray-200 text-gray-800 font-bold py-2 px-4">
             Toggle Filters
             </button>
+
+           <a href="{{ route('task.form', 'create') }}"
+                wire:navigate
+                class="my-5 flex-end bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Create Task
+            </a>
+
+
             <form wire:submit="loadTask()" x-show="showFilters" x-transition class="my-2 w-full">
             <!-- Search Form -->
             <div>

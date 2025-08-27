@@ -3,15 +3,71 @@
 namespace App\Livewire\Page;
 
 use Livewire\Component;
+use App\Models\Task;
+use App\Models\Category;
+use App\Models\User;
 
 class TaskFormPage extends Component
 {
-    public $id;
+    public $taskId;
+    public $title;
+    public $status = 'Pending';
+    public $category_id;
+    public $assigned_to;
+
+    public $categories = [];
+    public $users = [];
 
     public function mount($id)
     {
-        $this->id = $id;
+
+        $this->categories = Category::pluck('name', 'id')->toArray();
+        $this->users = User::pluck('name', 'id')->toArray();
+
+        if ($id != "create") {
+            $task = Task::findOrFail($id);
+            $this->taskId = $task->id;
+            $this->title = $task->title;
+            $this->status = $task->status;
+            $this->category_id = $task->category_id;
+            $this->assigned_to = $task->assigned_to;
+        }
+
     }
+
+    public function save()
+    {
+        $this->validate([
+            'title' => 'required|string|max:255',
+            'status' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'assigned_to' => 'nullable|exists:users,id',
+        ]);
+
+        if ($this->taskId) {
+            // Update existing task
+            $task = Task::findOrFail($this->taskId);
+            $task->update([
+                'title' => $this->title,
+                'status' => $this->status,
+                'category_id' => $this->category_id,
+                'assigned_to' => $this->assigned_to,
+            ]);
+            session()->flash('success', 'Task updated successfully!');
+        } else {
+            // Create new task
+            Task::create([
+                'title' => $this->title,
+                'status' => $this->status,
+                'category_id' => $this->category_id,
+                'assigned_to' => $this->assigned_to,
+            ]);
+            session()->flash('success', 'Task created successfully!');
+        }
+
+        return redirect()->route('task-page');
+    }
+
 
     public function render()
     {
