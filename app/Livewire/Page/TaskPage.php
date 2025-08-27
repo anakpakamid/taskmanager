@@ -103,6 +103,16 @@ class TaskPage extends Component
         }
     }
 
+    public function resetTable()
+    {
+       $this->filters = [
+            'title' => '',
+            'status' => '',
+            'category_id' => '',
+            'assigned_user_id' => '',
+       ];
+       $this->loadTask();
+    }
     public function render()
     {
         return view('livewire.page.task-page')
