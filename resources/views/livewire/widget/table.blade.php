@@ -21,4 +21,15 @@
             @endforeach
         </tbody>
     </table>
+
+    <div class="mt-4 flex justify-center space-x-2" x-data="{ currentPage: @entangle('currentPage'), totalPages: @entangle('totalPages') }">
+        <button wire:click="onPreviousPage" x-show="currentPage > 1" x-transition class="px-4 py-2 bg-gray-300 text-gray-700 rounded-l">
+            <- Previous
+        </button>
+        <button wire:click="onNextPage" x-show="currentPage < totalPages" x-transition
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded">
+            Next ->
+        </button>
+    </div>
+
 </div>

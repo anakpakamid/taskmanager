@@ -34,6 +34,7 @@
     <div class="lg:pl-64">
          <!-- Top navigation -->
         <livewire:component.top-header />
+        
         <!-- Page content -->
         <main class="flex-1">
             <div class="py-6">

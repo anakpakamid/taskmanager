@@ -1,7 +1,6 @@
 <div>
-
    Hello from Alpine Concept
-   <b>Counter</b>
+    <b>Counter</b>
     <div x-data="{ count: 0 }">
         <button @click="count++">+</button>
         <button @click="count--">-</button>
@@ -97,11 +96,5 @@
         <p x-cloak x-data="{showForm:false}" x-init="setTimeout(()=> showForm = true ,1000)" x-show="showForm">This won’t flash on load</p>
     </div>
 
-
-    <br><br>
-
-    <br><br>
-    <br><br>
-    <br><br>
 
 </div>

@@ -3,32 +3,36 @@
 namespace App\Livewire\Page;
 
 use Livewire\Component;
+use App\Models\Task;
 
 class TaskPage extends Component
 {
 
-     public $tasks = [
-            ['id' => 1, 'title' => 'Task 1', 'category' => 'Work', 'due_date' => '2023-10-01', 'status' => 'Pending'],
-            ['id' => 2, 'title' => 'Task 2', 'category' => 'Personal', 'due_date' => '2023-10-05', 'status' => 'Completed'],
-            ['id' => 3, 'title' => 'Task 3', 'category' => 'Shopping', 'due_date' => '2023-10-03', 'status' => 'Pending'],
-        ];
+     public $tasks = [];
 
     public $columns = [
             ['field' => 'id', 'label' => 'ID'],
             ['field' => 'title', 'label' => 'Title'],
-            ['field' => 'category', 'label' => 'Category'],
-            ['field' => 'due_date', 'label' => 'Due Date'],
+            // ['field' => 'description', 'label' => 'Description'],
+            ['field' => 'category_name', 'label' => 'Category Name'],
+            ['field' => 'assigned_user_name', 'label' => 'Assigned To'],
             ['field' => 'status', 'label' => 'Status'],
         ];
 
-    public $rows = [
-            ['id' => 1, 'title' => 'Task 1', 'category' => 'Work', 'due_date' => '2023-10-01', 'status' => 'Pending'],
-            ['id' => 2, 'title' => 'Task 2', 'category' => 'Personal', 'due_date' => '2023-10-05', 'status' => 'Completed'],
-            ['id' => 3, 'title' => 'Task 3', 'category' => 'Shopping', 'due_date' => '2023-10-03', 'status' => 'Pending'],
-        ];
+    public $rows = [];
 
     public $route = 'task-page';
 
+    public function mount(){
+        $this->rows = Task::with([
+            'category',
+            'assignedUser'
+        ])->get()
+        ->each(function($task){
+           $task->append(['category_name', 'assigned_user_name']);
+        });
+
+    }
     public function render()
     {
         return view('livewire.page.task-page')

@@ -15,9 +15,7 @@ return new class extends Migration
            $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
-            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
-            $table->date('due_date')->nullable();
+            $table->enum('status', ['Pending', 'In_progress', 'Completed'])->default('pending');
             $table->foreignId('category_id')->nullable()->constrained();
             $table->foreignId('assigned_to')->nullable()->constrained('users');
             $table->timestamps();
