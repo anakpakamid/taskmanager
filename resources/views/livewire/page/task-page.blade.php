@@ -12,6 +12,8 @@ x-transition>
     <livewire:toast-action /> --}}
 
     {{-- <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route" /> --}}
+
+
     <div x-data="{
     filters: @entangle('filters'),
     showFilters: false,
@@ -82,10 +84,21 @@ x-transition>
             </form>
         </div>
     </div>
+
+
+
     <div class="px-4">
-    <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route"
-    :current-page="$page" :total-pages="$totalPages"
-    form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
+        @if(session()->has('success'))
+        <div class="px-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+            <strong class="font-bold">Success!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+        @endif
+
+
+        <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route"
+        :current-page="$page" :total-pages="$totalPages"
+        form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
     </div>
 
     </div>

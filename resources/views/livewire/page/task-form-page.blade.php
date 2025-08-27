@@ -5,6 +5,7 @@
         <h1 class="text-2xl font-bold mb-6">
         {{ $taskId ? 'Edit Task' : 'Create Task' }}
         </h1>
+    
     <form wire:submit.prevent="save" class="space-y-4">
         <!-- Title -->
         <div>
