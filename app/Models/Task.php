@@ -52,6 +52,27 @@ class Task extends Model
             ->offset($offset);
     }
 
+    public function scopeSearch($query, $filters)
+    {
+
+        return $query->with([
+            'assignedUser',
+            'category',
+        ])
+            ->when($filters['title'], function ($q,$v)  {
+                $q->where('title', 'like', '%' . $v . '%');
+            })
+            ->when($filters['status'], function ($q,$v)  {
+                $q->where('status', $v);
+            })
+            ->when($filters['category_id'], function ($q,$v)  {
+                $q->where('category_id', $v);
+            })
+            ->when($filters['assigned_user_id'], function ($q,$v)  {
+                $q->where('assigned_to', $v);
+            });
+    }
+
 
 
 }

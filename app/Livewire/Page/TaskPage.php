@@ -4,11 +4,20 @@ namespace App\Livewire\Page;
 
 use Livewire\Component;
 use App\Models\Task;
+use App\Models\Category;
+use App\Models\User;
 
 class TaskPage extends Component
 {
 
      public $tasks = [];
+
+     public $filters = [
+        'title' => '',
+        'status' => '',
+        'category_id' => '',
+        'assigned_user_id' => '',
+     ];
 
     public $columns = [
             ['field' => 'id', 'label' => 'ID'],
@@ -32,6 +41,9 @@ class TaskPage extends Component
         'nextPage' => 'onNextPage',
     ];
 
+    public $categories = [];
+    public $users = [];
+
     // public function mount(){
 
     //     $this->totalPages = (int) ceil(Task::count() / $this->limit);
@@ -52,16 +64,27 @@ class TaskPage extends Component
 
     public function mount()
     {
+        #load sekali jadi takyah load banyak kali sbb mount panggil sekali je
+        #klu letak di loadTask, dia akan load banyak kali
+        $this->categories = Category::all()->toArray();
+        $this->users = User::all()->toArray();
         $this->loadTask();
     }
 
     public function loadTask()
     {
+        $offset = ($this->page - 1) * $this->limit;
+
+        $query = Task::search($this->filters);
+
         $this->totalPages = (int) ceil(Task::count() / $this->limit);
         $offset = ($this->page - 1) * $this->limit;
-        $this->rows = Task::table($this->page, $this->limit)
+        $this->rows = $query
+            ->limit($this->limit)
+            ->offset($offset)
             ->get()
             ->each(fn($task) => $task->append(['assigned_user_name', 'category_name']));
+
     }
 
     public function onPreviousPage()
