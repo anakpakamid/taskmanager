@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Page\TaskPage;
 use App\Livewire\Page\TaskFormPage;
 use App\Livewire\Page\CategoryPage;
+use App\Livewire\Page\CategoryFormPage;
+use App\Livewire\AlpineConcept;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,3 +18,5 @@ Route::get('/task-page/{id}', TaskFormPage::class);
 
 Route::get('/category', CategoryPage::class);
 // Route::get('/category/{id}', CategoryFormPage::class);
+
+Route::get('/alpine', AlpineConcept::class)->name('alpine');
