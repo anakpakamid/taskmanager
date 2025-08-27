@@ -40,5 +40,18 @@ class Task extends Model
         return $this->category ? $this->category->name : 'Uncategorized';
     }
 
+    public function scopeTable($query, $page, $limit)
+    {
+        $offset = ($page - 1) * $limit;
+
+        return $query->with([
+            'assignedUser',
+            'category',
+        ])
+            ->limit($limit)
+            ->offset($offset);
+    }
+
+
 
 }

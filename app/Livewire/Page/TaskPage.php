@@ -23,16 +23,63 @@ class TaskPage extends Component
 
     public $route = 'task-page';
 
-    public function mount(){
-        $this->rows = Task::with([
-            'category',
-            'assignedUser'
-        ])->get()
-        ->each(function($task){
-           $task->append(['category_name', 'assigned_user_name']);
-        });
+    public $page=1;
+    public $totalPages=0;
+    public $limit=10;
 
+    public $listeners = [
+        'previousPage' => 'onPreviousPage',
+        'nextPage' => 'onNextPage',
+    ];
+
+    // public function mount(){
+
+    //     $this->totalPages = (int) ceil(Task::count() / $this->limit);
+    //     $offset = ($this->page - 1) * $this->limit;
+
+    //     $this->rows = Task::with([
+    //         'category',
+    //         'assignedUser'
+    //     ])
+    //     ->limit($this->limit)
+    //     ->offset($offset)
+    //     ->get()
+    //     ->each(function($task){
+    //        $task->append(['category_name', 'assigned_user_name']);
+    //     });
+
+    // }
+
+    public function mount()
+    {
+        $this->loadTask();
     }
+
+    public function loadTask()
+    {
+        $this->totalPages = (int) ceil(Task::count() / $this->limit);
+        $offset = ($this->page - 1) * $this->limit;
+        $this->rows = Task::table($this->page, $this->limit)
+            ->get()
+            ->each(fn($task) => $task->append(['assigned_user_name', 'category_name']));
+    }
+
+    public function onPreviousPage()
+    {
+        if ($this->page > 1) {
+            $this->page--;
+            $this->loadTask();
+        }
+    }
+
+    public function onNextPage()
+    {
+        if ($this->page < $this->totalPages) {
+            $this->page++;
+            $this->loadTask();
+        }
+    }
+
     public function render()
     {
         return view('livewire.page.task-page')

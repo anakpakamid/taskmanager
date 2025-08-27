@@ -11,7 +11,8 @@
     <livewire:toast-action /> --}}
 
     {{-- <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route" /> --}}
-    
-    <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route" current-page=“1” total-pages=“2”
-            form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
+
+    <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route"
+    :current-page="$page" :total-pages="$totalPages"
+    form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
 </div>
