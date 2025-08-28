@@ -12,7 +12,7 @@ x-transition>
     <livewire:toast-action /> --}}
 
     {{-- <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route" /> --}}
-
+    <input type="checkbox" value="synthwave" class="toggle theme-controller" />
 
     <div x-data="{
     filters: @entangle('filters'),
@@ -28,9 +28,10 @@ x-transition>
 
            <a href="{{ route('task.form', 'create') }}"
                 wire:navigate
-                class="my-5 flex-end bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                class="my-5 flex-end bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4">
                 Create Task
             </a>
+
 
 
             <form wire:submit="loadTask()" x-show="showFilters" x-transition class="my-2 w-full">
@@ -85,9 +86,10 @@ x-transition>
         </div>
     </div>
 
-
-
     <div class="px-4">
+
+    <livewire:tailwind-css />
+
         @if(session()->has('success'))
         <div class="px-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
             <strong class="font-bold">Success!</strong>
