@@ -9,8 +9,8 @@
 
     <b>Background & Border Examples:</b>
     <div class="bg-blue-500">aloooo</div> <br>
-    <div class="bg-purple-400 bg-purple-600">aloooo</div> <br>
-    <div class="border-2 border-sky-500 border dashed rounded-lg">aloooo</div> <br>
+    <div class="bg-purple-400">aloooo</div> <br>
+    <div class="border-2 border-sky-500 dashed rounded-lg">aloooo</div> <br>
     <div class="border border-blue-600 rounded-lg">aloooo</div> <br>
 
     <b>Animation</b>

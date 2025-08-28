@@ -18,4 +18,17 @@ class Category extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function scopeSearch($query, $filters)
+    {
+
+        return $query
+            ->when($filters['name'], function ($q,$v)  {
+                $q->where('name', 'like', '%' . $v . '%');
+            })
+             ->when($filters['color'], function ($q,$v)  {
+                $q->where('color', 'like', '%' . $v . '%');
+            })
+           ;
+    }
 }

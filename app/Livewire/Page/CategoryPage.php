@@ -3,23 +3,77 @@
 namespace App\Livewire\Page;
 
 use Livewire\Component;
-
+use App\Models\Category;
 class CategoryPage extends Component
 {
+    public $categories = [];
+
+    public $filters = [
+        'name' => '',
+        'color' => '',
+     ];
+
    public $columns = [
-        ['field' => 'id', 'label' => 'ID'],
-        ['label' => 'Category', 'field' => 'name'],
-        ['label' => 'Description', 'field' => 'description'],
-        ['label' => 'Created At', 'field' => 'created_at'],
-    ];
+            ['field' => 'id', 'label' => 'ID'],
+            ['field' => 'name', 'label' => 'Name'],
+            ['field' => 'color', 'label' => 'Color'],
+        ];
+
+    public $rows = [];
 
     public $route = 'category';
 
-    public $rows = [
-        ['id'=> '1','name' => 'Work', 'description' => 'Tasks related to work', 'created_at' => '2024-01-01'],
-        ['id'=> '2','name' => 'Personal', 'description' => 'Personal tasks and errands', 'created_at' => '2024-02-15'],
-        ['id'=> '3','name' => 'Shopping', 'description' => 'Grocery and shopping lists', 'created_at' => '2024-03-10'],
+    public $page=1;
+    public $totalPages=0;
+    public $limit=10;
+
+    public $listeners = [
+        'previousPage' => 'onPreviousPage',
+        'nextPage' => 'onNextPage',
     ];
+
+    public function mount(){
+
+        $this->loadTask();
+    }
+
+    public function loadTask(){
+        $offset = ($this->page - 1) * $this->limit;
+
+        $query = Category::search($this->filters);
+
+        $this->totalPages = (int) ceil(Category::count() / $this->limit);
+        $offset = ($this->page - 1) * $this->limit;
+        $this->rows = $query
+            ->limit($this->limit)
+            ->offset($offset)
+            ->get();
+    }
+
+     public function onPreviousPage()
+    {
+        if ($this->page > 1) {
+            $this->page--;
+            $this->loadTask();
+        }
+    }
+
+    public function onNextPage()
+    {
+        if ($this->page < $this->totalPages) {
+            $this->page++;
+            $this->loadTask();
+        }
+    }
+
+    public function resetTable()
+    {
+       $this->filters = [
+            'name' => '',
+            'column' => '',
+       ];
+       $this->loadTask();
+    }
 
     public function render()
     {
