@@ -12,6 +12,9 @@ class TaskPage extends Component
 
      public $tasks = [];
 
+     public $allowEdit = 'tasks.edit';
+     public $allowDelete = 'tasks.delete';
+
      public $filters = [
         'title' => '',
         'status' => '',

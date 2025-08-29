@@ -18,9 +18,9 @@ class TaskFormPage extends Component
     public $categories = [];
     public $users = [];
 
+
     public function mount($id)
     {
-
         $this->categories = Category::pluck('name', 'id')->toArray();
         $this->users = User::pluck('name', 'id')->toArray();
 
@@ -44,25 +44,42 @@ class TaskFormPage extends Component
             'assigned_to' => 'nullable|exists:users,id',
         ]);
 
-        if ($this->taskId) {
-            // Update existing task
-            $task = Task::findOrFail($this->taskId);
-            $task->update([
-                'title' => $this->title,
-                'status' => $this->status,
-                'category_id' => $this->category_id,
-                'assigned_to' => $this->assigned_to,
-            ]);
-            session()->flash('success', 'Task updated successfully!');
-        } else {
-            // Create new task
-            Task::create([
-                'title' => $this->title,
-                'status' => $this->status,
-                'category_id' => $this->category_id,
-                'assigned_to' => $this->assigned_to,
-            ]);
-            session()->flash('success', 'Task created successfully!');
+        try {
+
+            if ($this->taskId) {
+                // Update existing task
+                    $task = Task::findOrFail($this->taskId);
+                    $task->update([
+                        'title' => $this->title,
+                        'status' => $this->status,
+                        'category_id' => $this->category_id,
+                        'assigned_to' => $this->assigned_to,
+                    ]);
+                    session()->flash('success', 'Task updated successfully!');
+
+            } else {
+
+
+                // if(!auth()->user()->canAny(['tasks.create','tasks.create.own'])){
+                //     session()->flash('danger', 'You do not have permission to create tasks.');
+                // }
+
+                // if(!auth()->user()->can('tasks.create.own') && $this->assigned_to == null){
+                //     session()->flash('danger', 'You do not have permission to create tasks.');
+                // }
+
+                // Create new task
+                Task::create([
+                    'title' => $this->title,
+                    'status' => $this->status,
+                    'category_id' => $this->category_id,
+                    'assigned_to' => $this->assigned_to,
+                ]);
+
+            }
+        }
+        catch (\Exception $e) {
+            session()->flash('danger', $e->getMessage() );
         }
 
         return redirect()->route('task-page');

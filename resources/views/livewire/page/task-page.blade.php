@@ -26,13 +26,13 @@ x-transition>
             Toggle Filters
             </button>
 
-           <a href="{{ route('task.form', 'create') }}"
+            @can('tasks.create')
+            <a href="{{ route('task-page.form', 'create') }}"
                 wire:navigate
-                class="my-5 flex-end bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4">
+                class="my-5 flex-end bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 float-right">
                 Create Task
             </a>
-
-
+            @endcan
 
             <form wire:submit="loadTask()" x-show="showFilters" x-transition class="my-2 w-full">
             <!-- Search Form -->
@@ -88,19 +88,24 @@ x-transition>
 
     <div class="px-4">
 
-    <livewire:tailwind-css />
 
         @if(session()->has('success'))
         <div class="px-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
             <strong class="font-bold">Success!</strong>
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
+        @elseif(session()->has('danger'))
+        <div class="px-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
+            <strong class="font-bold">Danger!</strong>
+            <span class="block sm:inline">{{ session('danger') }}</span>
+        </div>
         @endif
 
 
         <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route"
         :current-page="$page" :total-pages="$totalPages"
-        form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
+        :allowEdit="$allowEdit" :allowDelete="$allowDelete"
+         form-route="task-form" :key="md5(json_encode($rows))" class="mt-5" />
     </div>
 
     </div>

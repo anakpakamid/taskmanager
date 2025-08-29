@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             TaskSeeder::class,
+            RolePermissionSeeder::class,
+            UserPRSeeder::class,
         ]);
         // User::factory()->create([
         //     'name' => 'Test User',

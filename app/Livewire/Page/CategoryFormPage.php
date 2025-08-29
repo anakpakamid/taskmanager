@@ -16,8 +16,7 @@ class CategoryFormPage extends Component
         // $this->categoryId = $id;
 
         if ($id != "create") {
-            $data = \Crypt::decrypt($id);
-            $category = Category::findOrFail($data);
+            $category = Category::findOrFail($id);
             $this->categoryId = $category->id;
             $this->name = $category->name;
             $this->color = $category->color;

@@ -15,8 +15,12 @@
                         <td class="p-2">{{ $row[$col['field']] }}</td>
                     @endforeach
                     <td class="p-2">
-                        <a wire:navigate href="/{{$route}}/{{\Crypt::encrypt($row['id'])}}" class="button">Edit</a>
-                        <a wire:navigate href="/{{$route}}/{{\Crypt::encrypt($row['id'])}}" class="button">Delete</a>
+                        @can($allowEdit)
+                        <a wire:navigate href="/{{$route}}/{{$row['id']}}" class="button">Edit</a>|
+                        @endcan
+                        @can($allowDelete)
+                        <a wire:navigate href="/{{$route}}/{{$row['id']}}" class="button">Delete</a>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

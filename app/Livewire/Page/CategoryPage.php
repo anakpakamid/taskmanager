@@ -12,6 +12,8 @@ class CategoryPage extends Component
         'name' => '',
         'color' => '',
      ];
+    public $allowEdit ;
+    public $allowDelete ;
 
    public $columns = [
             ['field' => 'id', 'label' => 'ID'],

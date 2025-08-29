@@ -21,9 +21,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        // Create additional test users
-        User::factory()->count(10)->create();
-
         // Create a specific test user
         User::create([
             'name' => 'Test User',
@@ -31,5 +28,17 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
+
+        User::create([
+            'name' => 'Editor User',
+            'email' => 'editor@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
+       
+
+        // Create additional test users
+        User::factory()->count(10)->create();
     }
 }

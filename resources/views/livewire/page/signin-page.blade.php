@@ -20,6 +20,10 @@
                 @error('password') <span class="text-red-600">{{ $message }}</span> @enderror
                 <br><br>
             </div>
+            <div>
+                Dont have an account?
+                <a href="{{ route('auth.sign-up') }}" class="text-blue-600">Sign Up</a>
+            </div>
 
             <button type="submit" class="btn btn-primary">Sign In</button>
             <a href="/" class="btn btn-soft">Cancel</a>

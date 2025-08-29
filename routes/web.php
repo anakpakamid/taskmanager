@@ -13,17 +13,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
+Route::group(['middleware'=>'auth'],function () {
+    Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
 
-Route::get('/task-page', TaskPage::class)->name('task-page');
-Route::get('/task-page/{id}', TaskFormPage::class)->name('task.form');
+    Route::get('/task-page', TaskPage::class)->name('task-page');
 
-Route::get('/category', CategoryPage::class)->name('category');
-Route::get('/category/{id}', CategoryFormPage::class)->name('category.form');
+    Route::get('/task-page/{id}', TaskFormPage::class)->name('task-page.form');
 
-Route::get('/alpine', AlpineConcept::class)->name('alpine');
+    Route::get('/category', CategoryPage::class)->name('category');
+    Route::get('/category/{id}', CategoryFormPage::class)->name('category.form');
+
+    Route::get('/alpine', AlpineConcept::class)->name('alpine');
+});
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('/sign-in', SigninPage::class)->name('auth.sign-in');
+    Route::get('/sign-in', SigninPage::class)->name('login');
     Route::get('/sign-up', SignupPage::class)->name('auth.sign-up');
 });

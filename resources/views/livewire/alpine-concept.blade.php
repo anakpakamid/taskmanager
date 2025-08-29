@@ -97,4 +97,7 @@
     </div>
 
 
+    <br>
+    <livewire:tailwind-css />
+
 </div>

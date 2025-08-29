@@ -32,7 +32,7 @@
                         </a>
                     @else
                         <a
-                            href="{{ route('auth/sign-in') }}"
+                            href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
                         >
                             Log in
@@ -63,7 +63,7 @@
                             </span>
                             <span>
                                 Log Masuk ke halaman dashboard
-                                <a href="{{route('auth.sign-in')}}" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="{{route('login')}}" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
                                     <span>Login</span>
                                     <svg
                                         width="10"
@@ -91,7 +91,7 @@
                             </span>
                             <span>
                                Daftar akaun baharu
-                                <a href="{{route('auth.sign-up')}}" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="{{route('auth.sign-up')}}" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
                                     <span>Daftar</span>
                                     <svg
                                         width="10"

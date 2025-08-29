@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Category;
 use App\Models\User;
-
+use App\Observers\PermissionObserver;
+use App\Models\Scopes\PermissionScope;
 class Task extends Model
 {
     use HasFactory;
@@ -19,6 +20,12 @@ class Task extends Model
         'category_id',
         'assigned_to',
     ];
+
+    protected static function booted()
+    {
+    static::observe(PermissionObserver::class);
+    static::addGlobalScope(new PermissionScope());
+    }
 
     public function category(): BelongsTo
     {

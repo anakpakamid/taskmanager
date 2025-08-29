@@ -55,6 +55,7 @@ x-transition>
 
       <livewire:widget.table :columns="$columns" :rows="$rows" :route="$route"
         :current-page="$page" :total-pages="$totalPages"
+        :allowEdit="$allowEdit" :allowDelete="$allowDelete"
         form-route="category" :key="md5(json_encode($rows))" class="mt-5" />
 
 </div>
